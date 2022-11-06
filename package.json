@@ -1,0 +1,41 @@
+{
+  "name": "static-website-template",
+  "version": "1.0",
+  "description": "Template for creating static website",
+  "scripts": {
+    "build:scss": "sass --no-source-map src/scss:dist/css",
+    "build:eleventy": "eleventy",
+    "copy:www": "copyfiles -u 1 'www/**/*' dist",
+    "watch:www": "onchange \"www/**/*\" -- npm run copy:www",
+    "watch:scss": "sass --watch src/scss:dist/css",
+    "watch:eleventy": "eleventy --serve",
+    "watch": "npm-run-all --parallel watch:*",
+    "post:css": "lightningcss --minify --targets '> 0.25%, not IE 11' dist/css/*.css -o dist/css/*.css",
+    "post:img": "imageoptim dist/img",
+    "post:js":"uglifyjs dist/js/script.js --compress -o dist/js/script.js ",
+    "start": "npm-run-all copy:www watch",
+    "build": "npm-run-all build:* copy:www",
+    "post": "npm-run-all post:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": ".git"
+  },
+  "author": "Alexander Darsow <www.alexander-darsow.de>",
+  "license": "MIT",
+  "dependencies": {  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.2",
+    "copyfiles": "^2.4.1",
+    "imagemin-cli": "^7.0.0",
+    "lightningcss-cli": "^1.16.0",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "sass": "^1.55.0",
+    "uglify-js": "^3.17.4"
+  },
+  "browserslist": [
+    "> 0.25%",
+    "not IE 11"
+  ]
+}
